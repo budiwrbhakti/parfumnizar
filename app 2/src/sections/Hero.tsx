@@ -67,7 +67,7 @@ export default function Hero() {
         {/* Floating Bottle */}
         <img
           ref={bottleRef}
-          src="/hero-bottle.png"
+          src="/hero-image.png"
           alt="Parfum Nizar"
           style={{
             width: 'clamp(200px, 35vw, 450px)',
