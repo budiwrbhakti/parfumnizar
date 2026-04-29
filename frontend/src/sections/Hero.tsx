@@ -42,7 +42,8 @@ export default function Hero() {
       id="hero"
       style={{
         position: 'relative',
-        height: '100vh',
+        height: '100dvh',
+        minHeight: '600px',
         width: '100%',
         display: 'flex',
         alignItems: 'center',
