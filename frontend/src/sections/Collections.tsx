@@ -523,13 +523,25 @@ export default function Collections() {
       {/* Mobile layout styles */}
       <style>{`
         @media (max-width: 768px) {
+          #collections {
+            padding: 80px 0 60px !important;
+          }
+          #collections > div:first-child {
+            margin-bottom: 24px !important;
+          }
           #collections > div:last-child {
             grid-template-columns: 1fr !important;
-            grid-template-rows: 60vw 1fr;
+            grid-template-rows: 50vh auto !important;
+            min-height: auto !important;
           }
           #collections > div:last-child > div:last-child {
             border-left: none !important;
             border-top: 1px solid #1a1a1a;
+            padding: 32px 24px !important;
+          }
+          /* Hide thumbnail strip on mobile to save space */
+          #collections > div:last-child > div:last-child > div:first-child {
+            display: none !important;
           }
         }
       `}</style>
