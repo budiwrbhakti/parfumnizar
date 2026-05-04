@@ -76,6 +76,7 @@ function useIsMobile() {
 export default function Collections() {
   const [current, setCurrent] = useState(0)
   const [isAnimating, setIsAnimating] = useState(false)
+  const [isFullscreen, setIsFullscreen] = useState(false)
   const imageRef = useRef<HTMLDivElement>(null)
   const textRef = useRef<HTMLDivElement>(null)
   const headerRef = useRef<HTMLDivElement>(null)
@@ -188,7 +189,7 @@ export default function Collections() {
         <div>
           {/* Image */}
           <div style={{ position: 'relative', width: '100%', height: '60vw', minHeight: '260px', overflow: 'hidden', background: '#111' }}>
-            <div ref={imageRef} style={{ position: 'absolute', inset: 0, willChange: 'transform' }}>
+            <div ref={imageRef} style={{ position: 'absolute', inset: 0, willChange: 'transform', cursor: 'zoom-in' }} onClick={() => setIsFullscreen(true)}>
               <img
                 key={page.id}
                 src={page.image}
@@ -248,7 +249,7 @@ export default function Collections() {
         <div style={{ display: 'flex', height: 'clamp(480px, 60vh, 700px)', overflow: 'hidden' }}>
           {/* Main image */}
           <div style={{ flex: 1, position: 'relative', overflow: 'hidden', background: '#111' }}>
-            <div ref={imageRef} style={{ position: 'absolute', inset: 0, willChange: 'transform' }}>
+            <div ref={imageRef} style={{ position: 'absolute', inset: 0, willChange: 'transform', cursor: 'zoom-in' }} onClick={() => setIsFullscreen(true)}>
               <img
                 key={page.id}
                 src={page.image}
@@ -359,6 +360,68 @@ export default function Collections() {
               </a>
             </div>
           </div>
+        </div>
+      )}
+
+      {/* Fullscreen Image Modal */}
+      {isFullscreen && (
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 9999,
+            background: 'rgba(0, 0, 0, 0.9)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            cursor: 'zoom-out',
+            opacity: 0,
+            animation: 'fadeIn 0.3s forwards',
+          }}
+          onClick={() => setIsFullscreen(false)}
+        >
+          <button
+            style={{
+              position: 'absolute',
+              top: '24px',
+              right: '24px',
+              background: 'rgba(255, 255, 255, 0.1)',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+              color: '#fff',
+              width: '40px',
+              height: '40px',
+              borderRadius: '50%',
+              fontSize: '1.2rem',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              zIndex: 10000,
+            }}
+            onClick={(e) => {
+              e.stopPropagation()
+              setIsFullscreen(false)
+            }}
+          >
+            ×
+          </button>
+          <img
+            src={page.image}
+            alt={page.name}
+            style={{
+              maxWidth: '90vw',
+              maxHeight: '90vh',
+              objectFit: 'contain',
+              boxShadow: '0 20px 40px rgba(0,0,0,0.5)',
+              borderRadius: '8px',
+            }}
+          />
+          <style>{`
+            @keyframes fadeIn {
+              from { opacity: 0; }
+              to { opacity: 1; }
+            }
+          `}</style>
         </div>
       )}
     </section>
